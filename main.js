@@ -15,7 +15,7 @@ Apify.main(async () => {
 
     // Navigate to page
     const uri = `https://www.linguee.com/${input.dictionary}/search?source=${input.source}&query=${input.query}`;
-    const launchPuppeteer = process.env.NODE_ENV === 'development' ? puppeteer.launch : Apify.launch;
+    const launchPuppeteer = process.env.NODE_ENV === 'development' ? puppeteer.launch : Apify.launchPuppeteer;
 
     // if (process.env.NODE_ENV === 'development') {
     //     const browser = await puppeteer.launch();

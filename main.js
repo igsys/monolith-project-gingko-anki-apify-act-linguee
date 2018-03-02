@@ -62,9 +62,9 @@ Apify.main(async () => {
     // And then save output
     const output = {
         crawledAt: new Date(),
+        name: 'apify/igsys/linguee',
         input,
         definitions: results,
-        // html
     };
     console.log('My output:');
     console.dir(output);

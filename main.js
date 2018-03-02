@@ -15,8 +15,14 @@ Apify.main(async () => {
 
     // Navigate to page
     const uri = `https://www.linguee.com/${input.dictionary}/search?source=${input.source}&query=${input.query}`;
-    // const browser = await puppeteer.launch();
-    const browser = await Apify.launchPuppeteer();
+    const launchPuppeteer = process.env.NODE_ENV === 'development' ? puppeteer.launch : Apify.launch;
+
+    // if (process.env.NODE_ENV === 'development') {
+    //     const browser = await puppeteer.launch();
+    // } else {
+    //     const browser = await Apify.launchPuppeteer();
+    // }
+    const browser = await launchPuppeteer();
     const page = await browser.newPage();
     await page.goto(uri)
 
@@ -44,7 +50,7 @@ Apify.main(async () => {
     // And then save output
     const output = {
         crawledAt: new Date(),
-        keyword: query,
+        keyword: input.query,
         results: results,
         // html
     };

@@ -47,6 +47,7 @@ Apify.main(async () => {
     const output = {
         crawledAt: new Date(),
         query: input.query,
+        source: input.source,
         results: results,
         // html
     };

@@ -13,15 +13,11 @@ Apify.main(async () => {
     console.log('My input:');
     console.dir(input);
 
-    // Navigate to page
-    const uri = `https://www.linguee.com/${input.dictionary}/search?source=${input.source}&query=${input.query}`;
+    // Environment variables
     const launchPuppeteer = process.env.NODE_ENV === 'development' ? puppeteer.launch : Apify.launchPuppeteer;
 
-    // if (process.env.NODE_ENV === 'development') {
-    //     const browser = await puppeteer.launch();
-    // } else {
-    //     const browser = await Apify.launchPuppeteer();
-    // }
+    // Navigate to page
+    const uri = `https://www.linguee.com/${input.dictionary}/search?source=${input.source}&query=${input.query}`;
     const browser = await launchPuppeteer();
     const page = await browser.newPage();
     await page.goto(uri)
@@ -30,18 +26,18 @@ Apify.main(async () => {
     const $ = cheerio.load(html)
 
     // get meaning and examples
-    $('.sortablemg.featured').each(function () {
+    $('.sortablemg.featured').each((i, element1) => {
         let result = {}
-        result['meaning'] = $(this).find('.dictLink.featured').text().trim();
-        result['grammar'] = $(this).find('.tag_type').text().trim();
+        result['meaning'] = $(element1).find('.dictLink.featured').text().trim();
+        result['grammar'] = $(element1).find('.tag_type').text().trim();
         result.examples = [];
 
-        $(this).find('.example_lines').each(function (i) {
-            console.log($(this).find('.tag_e').eq(i).find('.tag_s').text().trim())
+        $(element1).find('.example_lines .example').each((j, element2) => {
+            console.log(j, $(element2).find('.tag_s').text().trim())
             result.examples.push({
-                index: i,
-                mono: $(this).find('.tag_e').eq(i).find('.tag_s').text().trim(),
-                trans: $(this).find('.tag_e').eq(i).find('.tag_t').text().trim()
+                index: j,
+                mono: $(element2).find('.tag_s').text().trim(),
+                trans: $(element2).find('.tag_t').text().trim()
             });
         });
         results.push(result);

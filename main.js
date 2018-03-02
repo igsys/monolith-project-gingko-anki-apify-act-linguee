@@ -50,11 +50,15 @@ Apify.main(async () => {
 
         $(element1).find('.example_lines .example').each((j, element2) => {
             console.log(j, $(element2).find('.tag_s').text().trim())
-            result.examples.push({
-                index: j,
-                mono: $(element2).find('.tag_s').text().trim(),
-                trans: $(element2).find('.tag_t').text().trim()
-            });
+
+            // only take first example
+            if (j == 0) {
+                result.examples.push({
+                    // index: j,
+                    mono: $(element2).find('.tag_s').text().trim(),
+                    trans: $(element2).find('.tag_t').text().trim()
+                });
+            }
         });
         results.push(result);
     });

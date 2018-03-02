@@ -15,7 +15,8 @@ Apify.main(async () => {
 
     // Navigate to page
     const uri = `https://www.linguee.com/${input.dictionary}/search?source=${input.source}&query=${input.query}`;
-    const browser = await puppeteer.launch();
+    // const browser = await puppeteer.launch();
+    const browser = await Apify.launchPuppeteer();
     const page = await browser.newPage();
     await page.goto(uri)
 

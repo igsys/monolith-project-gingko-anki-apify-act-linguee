@@ -63,7 +63,7 @@ Apify.main(async () => {
     const output = {
         crawledAt: new Date(),
         input,
-        results: results,
+        definitions: results,
         // html
     };
     console.log('My output:');

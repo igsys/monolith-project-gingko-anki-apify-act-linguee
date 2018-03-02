@@ -1,29 +1,26 @@
 const Apify = require('apify');
-const typeCheck = require('type-check').typeCheck;
-
-// Definition of the input
-const INPUT_TYPE = `{
-    message: Maybe String,
-}`;
+const request = require('request-promise');
+const cheerio = require('cheerio');
 
 Apify.main(async () => {
-    // Fetch the input and check it has a valid format.
-    // You don't need to check the input, but it's a good practice.
+    // Get input of your act
     const input = await Apify.getValue('INPUT');
-    if (!typeCheck(INPUT_TYPE, input)) {
-        console.log('Expected input:');
-        console.log(INPUT_TYPE);
-        console.log('Received input:');
-        console.dir(input);
-        throw new Error('Received invalid input');
-    }
 
-    // Here's the place for your magic...
-    console.log(`Input message: ${input.message}`);
+    if (!input || !input.query || !input.source || !input.dictionary) throw new Error('Invalid input, must be a JSON object with the fields!');
 
-    // Store the output
+    console.log('My input:');
+    console.dir(input);
+
+    // Do something useful here
+    const html = await request(`https://www.linguee.com/${input.dictionary}/search?source=${input.source}&query=${input.query}`);
+    const $ = cheerio.load(html)
+
+    // And then save output
     const output = {
-        message: `${input.message} Hello my friend!`
+        crawledAt: new Date(),
+        dictionary: $('.dict_headline_for_0').text().trim()
     };
-    await Apify.setValue('OUTPUT', output)
+    console.log('My output:');
+    console.dir(output);
+    await Apify.setValue('OUTPUT', output);
 });

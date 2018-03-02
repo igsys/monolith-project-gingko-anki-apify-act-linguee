@@ -4,11 +4,26 @@ const cheerio = require('cheerio');
 
 const results = [];
 
+// Definition of the input
+const INPUT_TYPE = `{
+    query: String,
+    source: String,
+    dictionary: String
+}`;
+
 Apify.main(async () => {
     // Get input of your act
     const input = await Apify.getValue('INPUT');
 
-    if (!input || !input.query || !input.source || !input.dictionary) throw new Error('Invalid input, must be a JSON object with the fields!');
+    // Fetch the input and check it has a valid format
+    // You don't need to check the input, but it's a good practice.
+    if (!typeCheck(INPUT_TYPE, input)) {
+        console.log('Expected input:');
+        console.log(INPUT_TYPE);
+        console.log('Received input:');
+        console.dir(input);
+        throw new Error('Received invalid input');
+    }
 
     console.log('My input:');
     console.dir(input);

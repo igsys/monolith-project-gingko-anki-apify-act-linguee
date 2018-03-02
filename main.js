@@ -23,7 +23,7 @@ Apify.main(async () => {
     let html = await page.content()
     const $ = cheerio.load(html)
 
-    // get meaning and examples:
+    // get meaning and examples
     $('.sortablemg.featured').each(function () {
         let result = {}
         result['meaning'] = $(this).find('.dictLink.featured').text().trim();

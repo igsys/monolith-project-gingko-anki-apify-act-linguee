@@ -1,12 +1,11 @@
 {
-  "name": "act-quick-start",
+  "name": "monolith-project-gingko-anki-apify-act-linguee",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
     "apify": "^0.4.32",
     "cheerio": "^1.0.0-rc.2",
     "puppeteer": "^1.1.1",
-    "request-promise": "^4.2.2",
     "type-check": "^0.3.2"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 const Apify = require('apify');
+const typeCheck = require('type-check').typeCheck;
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 

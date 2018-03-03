@@ -18,6 +18,7 @@ const LEVEL_TYPE = {
     EXPERT: 'EXPERT'
 }
 
+
 Apify.main(async () => {
     // Get input of your act
     const input = await Apify.getValue('INPUT');

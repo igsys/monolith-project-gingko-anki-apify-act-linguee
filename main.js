@@ -12,6 +12,12 @@ const INPUT_TYPE = `{
     dictionary: String
 }`;
 
+const LEVEL_TYPE = {
+    NOVOICE: 'NOVOICE',
+    INTERMEDIATE: 'INTERMEDIATE',
+    EXPERT: 'EXPERT'
+}
+
 Apify.main(async () => {
     // Get input of your act
     const input = await Apify.getValue('INPUT');
@@ -54,7 +60,7 @@ Apify.main(async () => {
             // only take first example
             if (j == 0) {
                 result.examples.push({
-                    // index: j,
+                    level: LEVEL_TYPE.INTERMEDIATE,
                     mono: $(element2).find('.tag_s').text().trim(),
                     trans: $(element2).find('.tag_t').text().trim()
                 });

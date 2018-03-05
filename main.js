@@ -63,7 +63,7 @@ Apify.main(async () => {
                 result.examples.push({
                     level: LEVEL_TYPE.INTERMEDIATE,
                     mono: $(element2).find('.tag_s').text().trim(),
-                    trans: $(element2).find('.tag_t').text().trim()
+                    tran: $(element2).find('.tag_t').text().trim()
                 });
             }
         });

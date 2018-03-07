@@ -9,7 +9,7 @@ const results = [];
 const INPUT_TYPE = `{
     query: String,
     source: String,
-    dictionary: String
+    translation: String
 }`;
 
 const LEVEL_TYPE = {
@@ -40,7 +40,7 @@ Apify.main(async () => {
     const launchPuppeteer = process.env.NODE_ENV === 'development' ? puppeteer.launch : Apify.launchPuppeteer;
 
     // Navigate to page
-    const uri = `https://www.linguee.com/${input.dictionary}/search?source=${input.source}&query=${input.query}`;
+    const uri = `https://www.linguee.com/${input.translation}-${input.source}/search?source=${input.source}&query=${input.query}`;
     const browser = await launchPuppeteer();
     const page = await browser.newPage();
     await page.goto(uri)

@@ -38,8 +38,14 @@ Apify.main(async () => {
     // Environment variables
     const launchPuppeteer = process.env.NODE_ENV === 'development' ? puppeteer.launch : Apify.launchPuppeteer
 
+    const {
+        translation,
+        source,
+        query
+    } = input
+
     // Navigate to page
-    const uri = `https://www.linguee.com/${input.translation}-${input.source}/search?source=${input.source}&query=${input.query}`
+    const uri = `https://www.linguee.com/${translation}-${source}/search?source=${source}&query=${query}`
     const browser = await launchPuppeteer()
     const page = await browser.newPage()
     await page.goto(uri)
